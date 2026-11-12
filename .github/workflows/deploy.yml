@@ -1,0 +1,62 @@
+name: Deploy ke GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Pasang dependensi
+        run: |
+          npm install
+          npm run setup
+
+      # Gambar karakter (hak cipta ATLUS / SEGA) sengaja tidak ikut di repo (lihat .gitignore).
+      # Supaya build tidak gagal, file yang hilang diganti gambar kosong 1x1.
+      - name: Siapkan aset karakter (placeholder jika tidak ada)
+        run: |
+          mkdir -p assets/characters
+          PNG='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+          for f in makoto.png done_and_dusted.jpg makoto_face.jpg makoto_avatar.jpg; do
+            [ -f "assets/characters/$f" ] || echo "$PNG" | base64 -d > "assets/characters/$f"
+          done
+
+      - name: Build web
+        run: |
+          # GitHub Pages menyajikan situs di /<nama-repo>/, jadi isi baseUrl khusus saat build
+          node -e "const fs=require('fs');const j=JSON.parse(fs.readFileSync('app.json','utf8'));j.expo.experiments={...(j.expo.experiments||{}),baseUrl:'/${{ github.event.repository.name }}'};fs.writeFileSync('app.json',JSON.stringify(j,null,2));"
+          npx expo export --platform web
+          touch dist/.nojekyll
+          cp dist/index.html dist/404.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

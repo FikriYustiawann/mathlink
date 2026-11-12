@@ -1,0 +1,7 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": false,
+  "files.exclude": { "**/.expo": true },
+  "search.exclude": { "**/node_modules": true, "**/.expo": true, "**/dist": true },
+  "files.associations": { "*.js": "javascriptreact" }
+}

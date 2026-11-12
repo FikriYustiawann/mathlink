@@ -1,0 +1,25 @@
+# dependensi & cache
+node_modules/
+.expo/
+.expo-shared/
+web-build/
+dist/
+*.log
+npm-debug.*
+
+# sistem / editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# build lokal
+*.apk
+*.aab
+android/
+ios/
+
+# rahasia
+.env
+.env.*

@@ -1,0 +1,21 @@
+{
+  "name": "math-p3r-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "setup": "expo install react react-dom react-native react-native-web @expo/metro-runtime react-native-webview react-native-safe-area-context @react-native-async-storage/async-storage expo-status-bar expo-font expo-audio expo-media-library expo-sharing react-native-view-shot",
+    "start": "expo start",
+    "usb": "expo start --android --localhost",
+    "tunnel": "expo start --tunnel",
+    "android": "expo start --android",
+    "web": "expo start --web",
+    "doctor": "expo-doctor",
+    "fix": "expo install --fix",
+    "build:web": "expo export --platform web",
+    "preview:web": "npx serve dist"
+  },
+  "dependencies": {
+    "expo": "~58.0.0"
+  },
+  "private": true
+}

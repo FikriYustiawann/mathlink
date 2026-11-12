@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "MathLink",
+    "slug": "mathlink",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#020C1B",
+    "android": {
+      "package": "com.mathp3r.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#020C1B"
+      },
+      "softwareKeyboardLayoutMode": "resize"
+    },
+    "ios": {
+      "bundleIdentifier": "com.mathp3r.app",
+      "supportsTablet": true
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png",
+      "output": "single",
+      "name": "MathLink",
+      "shortName": "MathLink",
+      "backgroundColor": "#020C1B",
+      "themeColor": "#020C1B"
+    },
+    "plugins": [
+      "expo-status-bar",
+      "expo-font",
+      "expo-audio",
+      "expo-sharing"
+    ]
+  }
+}
